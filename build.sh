@@ -42,4 +42,13 @@ fi
 
 echo "Building images with version ${VERSION}"
 
+if [ "release" == "${RELEASE}" ]; then
+  jx step tag --version ${VERSION}
+fi
+
 retry 3 skaffold build -f skaffold.yaml
+
+if [ "release" == "${RELEASE}" ]; then
+  # trigger downstream release
+  updatebot push-version --kind docker jenkinsxio/builder-baseimage ${VERSION}
+fi
