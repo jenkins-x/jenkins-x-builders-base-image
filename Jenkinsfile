@@ -31,7 +31,7 @@ pipeline {
           PUSH = "true"
 		}
         steps {
-          git 'https://github.com/jenkins-x/jenkins-x-builders.git'
+          git 'https://github.com/jenkins-x/jenkins-x-builders-base-image.git'
           sh "git config --global credential.helper store"
           sh "jx step validate --min-jx-version 1.1.73"
           sh "jx step git credentials"
