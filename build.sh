@@ -50,5 +50,8 @@ retry 3 skaffold build -f skaffold.yaml
 
 if [ "release" == "${RELEASE}" ]; then
   # trigger downstream release
-  updatebot push-version --kind docker jenkinsxio/builder-baseimage ${VERSION}
+  updatebot push-version --kind docker \
+    jenkinsxio/builder-baseimage ${VERSION} \
+    jenkinsxio/builder-ruby-baseimage ${VERSION} \
+    jenkinsxio/builder-swift-baseimage ${VERSION}
 fi
