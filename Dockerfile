@@ -28,8 +28,7 @@ RUN curl -f -o ./endpoint-repo-1.7-1.x86_64.rpm https://packages.endpoint.com/rh
   yum install -y git 
 
 # java required for updatebot
-RUN yum install -y java-1.8.0-openjdk-devel \
-    java-1.8.0-openjdk-devel.i686
+RUN yum install -y java-1.8.0-openjdk-devel
 
 RUN yum -y groupinstall 'Development Tools'
 

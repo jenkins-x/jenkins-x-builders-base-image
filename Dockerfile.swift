@@ -15,3 +15,5 @@ RUN apt-get install -y libappindicator1 fonts-liberation libasound2 libnspr4 lib
     rm google-chrome*.deb && \
     apt-get clean
 
+ENV JQ_RELEASE_VERSION 1.5
+RUN wget https://github.com/stedolan/jq/releases/download/jq-${JQ_RELEASE_VERSION}/jq-linux64 && mv jq-linux64 jq && chmod +x jq && cp jq /usr/bin/jq
