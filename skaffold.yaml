@@ -23,12 +23,12 @@ build:
     pullSecretName: kaniko-secret
     namespace: jx
     timeout: 30m
-    cache:
-      repo: jenkins-x-docker-registry.jx.svc.cluster.local:5000/builder/cache
+#    cache:
+#     repo: jenkins-x-docker-registry.jx.svc.cluster.local:5000/builder/cache
     dockerConfig:
       secretName: jenkins-docker-cfg
-    flags:
-    - --cache-dir=/workspace
+#    flags:
+#    - --cache-dir=/workspace
 deploy:
   kubectl:
     manifests:
