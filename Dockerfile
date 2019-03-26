@@ -23,9 +23,17 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # Git
-RUN curl -f -o ./endpoint-repo-1.7-1.x86_64.rpm https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm && \
-  rpm -Uvh endpoint-repo*rpm && \
-  yum install -y git 
+ENV GIT_VERSION 2.21.0
+RUN yum install -y curl-devel expat-devel gettext-devel openssl-devel zlib-devel && \
+  yum install -y gcc perl-ExtUtils-MakeMaker && \
+  cd /usr/src  && \
+  wget https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz  && \
+  tar xzf git-2.21.0.tar.gz  && \
+  cd git-2.21.0 && \
+  make prefix=/usr/local/git all  && \
+  make prefix=/usr/local/git install
+
+ENV PATH /usr/local/git/bin:$PATH
 
 # java required for updatebot
 RUN yum install -y java-1.8.0-openjdk-devel
