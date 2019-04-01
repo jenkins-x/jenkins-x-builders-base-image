@@ -32,6 +32,11 @@ pipelineConfig:
               - -f
               - /builder/home/kaniko-secret.json
 
+          - image: gcr.io/jenkinsxio/builder-maven:0.1.320
+            command: make
+            args:
+              - build
+
           - name: warm-cache
             command: /kaniko/warmer
             image: gcr.io/kaniko-project/warmer
@@ -71,7 +76,7 @@ pipelineConfig:
               - --cache=true
               - --cache-dir=/workspace
 
-          - image: jenkinsxio/builder-base:0.1.320
+          - image: gcr.io/jenkinsxio/builder-jx:0.1.320
             command: updatebot
             args:
               - push-version
@@ -108,7 +113,7 @@ pipelineConfig:
               - -f
               - /builder/home/kaniko-secret.json
 
-          - image: jenkinsxio/builder-maven:0.1.320
+          - image: gcr.io/jenkinsxio/builder-maven:0.1.320
             command: make
             args:
               - build
