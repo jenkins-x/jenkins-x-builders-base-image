@@ -1,0 +1,149 @@
+buildPack: none
+pipelineConfig:
+  pipelines:
+    release:
+      pipeline:
+        agent:
+          image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+        stages:
+        - name: release
+          environment:
+          - name: GIT_COMMITTER_EMAIL
+            value: jenkins-x@googlegroups.com
+          - name: GIT_COMMITTER_NAME
+            value: jenkins-x-bot
+          - name: GIT_AUTHOR_EMAIL
+            value: jenkins-x@googlegroups.com
+          - name: GIT_AUTHOR_NAME
+            value: jenkins-x-bot
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: /builder/home/kaniko-secret.json
+          steps:
+
+          - image: jenkinsxio/jx:1.3.1008 
+            command: jx
+            args:
+              - step
+              - credential
+              - -s
+              - gcr
+              - -k
+              - jenkins-x-infra-bf55d322c9bb.json
+              - -f
+              - /builder/home/kaniko-secret.json
+
+          - name: warm-cache
+            command: /kaniko/warmer
+            image: gcr.io/kaniko-project/warmer
+            args:
+              - --cache-dir=/workspace
+              - --image=centos:7
+              - --image=ruby:2.5.1
+              - --image=swift:4.0.3
+
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile
+              - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
+              - --context=/workspace/workspace
+              - --cache-repo=gcr.io/jenkinsxio/cache-builder
+              - --cache=true
+              - --cache-dir=/workspace
+
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile.ruby
+              - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
+              - --context=/workspace/workspace
+              - --cache-repo=gcr.io/jenkinsxio/cache-builder
+              - --cache=true
+              - --cache-dir=/workspace
+
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile.swift
+              - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
+              - --context=/workspace/workspace
+              - --cache-repo=gcr.io/jenkinsxio/cache-builder
+              - --cache=true
+              - --cache-dir=/workspace
+
+          - image: gcr.io/jenkinsxio/builder-jx:0.1.320
+            command: updatebot
+            args:
+              - push-version
+              - --kind
+              - docker
+              - jenkinsxio/builder-baseimage
+              - ${inputs.params.version}
+              - jenkinsxio/builder-ruby-baseimage
+              - ${inputs.params.version}
+              - jenkinsxio/builder-swift-baseimage
+              - ${inputs.params.version}
+  
+    pullRequest:
+      pipeline:
+        agent:
+          image: gcr.io/kaniko-project
+        stages:
+        - name: build-and-push
+          environment:
+          - name: GKE_SA
+            value: /builder/home/jenkinsx-dev-07b8e95876b1.json
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: /builder/home/kaniko-secret.json
+          steps:
+          - image: jenkinsxio/jx:1.3.1008 
+            command: jx
+            args:
+              - step 
+              - credential
+              - -s
+              - gcr
+              - -k
+              - jenkins-x-infra-bf55d322c9bb.json
+              - -f
+              - /builder/home/kaniko-secret.json
+
+          - name: warm-cache
+            command: /kaniko/warmer
+            image: gcr.io/kaniko-project/warmer
+            args:
+              - --cache-dir=/workspace
+              - --image=centos:7
+              - --image=ruby:2.5.1
+              - --image=swift:4.0.3
+
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile
+              - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
+              - --context=/workspace/workspace
+              - --cache-repo=gcr.io/jenkinsxio/cache-builder
+              - --cache=true
+              - --cache-dir=/workspace
+
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile.ruby
+              - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
+              - --context=/workspace/workspace
+              - --cache-repo=gcr.io/jenkinsxio/cache-builder
+              - --cache=true
+              - --cache-dir=/workspace
+
+          - image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
+            command: /kaniko/executor
+            args:
+              - --dockerfile=Dockerfile.swift
+              - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
+              - --context=/workspace/workspace
+              - --cache-repo=gcr.io/jenkinsxio/cache-builder
+              - --cache=true
+              - --cache-dir=/workspace
+
