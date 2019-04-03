@@ -46,7 +46,7 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile
               - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
-              - --context=/workspace/workspace
+              - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
               - --cache-dir=/workspace
@@ -56,7 +56,7 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile.ruby
               - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
-              - --context=/workspace/workspace
+              - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
               - --cache-dir=/workspace
@@ -66,7 +66,7 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile.swift
               - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
-              - --context=/workspace/workspace
+              - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
               - --cache-dir=/workspace
@@ -122,7 +122,7 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile
               - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
-              - --context=/workspace/workspace
+              - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
               - --cache-dir=/workspace
@@ -132,7 +132,7 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile.ruby
               - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
-              - --context=/workspace/workspace
+              - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
               - --cache-dir=/workspace
@@ -142,7 +142,7 @@ pipelineConfig:
             args:
               - --dockerfile=Dockerfile.swift
               - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
-              - --context=/workspace/workspace
+              - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
               - --cache-dir=/workspace
