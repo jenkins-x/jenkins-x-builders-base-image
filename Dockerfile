@@ -22,6 +22,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+
 # Git
 ENV GIT_VERSION 2.21.0
 RUN yum install -y curl-devel expat-devel gettext-devel openssl-devel zlib-devel && \
@@ -37,8 +38,9 @@ ENV PATH /usr/local/git/bin:$PATH
 
 # java required for updatebot
 RUN yum install -y java-1.8.0-openjdk-devel
-
 RUN yum -y groupinstall 'Development Tools'
+
+RUN yum remove -y git
 
 ENV JQ_RELEASE_VERSION 1.5
 RUN wget https://github.com/stedolan/jq/releases/download/jq-${JQ_RELEASE_VERSION}/jq-linux64 && mv jq-linux64 jq && chmod +x jq && cp jq /usr/bin/jq
