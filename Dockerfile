@@ -10,7 +10,7 @@ RUN yum install -y epel-release && \
   bzip2 \
   python-pip
 
-RUN pip install anchorecli 
+RUN pip install anchorecli yamale
 
 # chrome
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
