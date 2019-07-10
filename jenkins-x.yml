@@ -42,11 +42,15 @@ pipelineConfig:
               - --image=ruby:2.5.1
               - --image=swift:4.0.3
 
+          - name: build-base
+            image: centos:7
+            command: /workspace/source/prep-centos-dockerfiles.sh
+
           - name: builder-baseimage
             image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
-              - --dockerfile=Dockerfile
+              - --dockerfile=Dockerfile.base.generated
               - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
@@ -79,7 +83,7 @@ pipelineConfig:
             image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
-              - --dockerfile=Dockerfile.machinelearning
+              - --dockerfile=Dockerfile.machinelearning.generated
               - --destination=docker.io/jenkinsxio/builder-machine-learning-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
@@ -90,7 +94,7 @@ pipelineConfig:
             image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
-              - --dockerfile=Dockerfile.machinelearninggpu
+              - --dockerfile=Dockerfile.machinelearninggpu.generated
               - --destination=docker.io/jenkinsxio/builder-machine-learning-gpu-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
@@ -148,11 +152,15 @@ pipelineConfig:
               - --image=ruby:2.5.1
               - --image=swift:4.0.3
 
+          - name: build-base
+            image: centos:7
+            command: /workspace/source/prep-centos-dockerfiles.sh
+
           - name: builder-baseimage
             image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
-              - --dockerfile=Dockerfile
+              - --dockerfile=Dockerfile.base.generated
               - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
@@ -185,7 +193,7 @@ pipelineConfig:
             image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
-              - --dockerfile=Dockerfile.machinelearning
+              - --dockerfile=Dockerfile.machinelearning.generated
               - --destination=docker.io/jenkinsxio/builder-machine-learning-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
@@ -196,7 +204,7 @@ pipelineConfig:
             image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
             command: /kaniko/executor
             args:
-              - --dockerfile=Dockerfile.machinelearninggpu
+              - --dockerfile=Dockerfile.machinelearninggpu.generated
               - --destination=docker.io/jenkinsxio/builder-machine-learning-gpu-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
