@@ -58,7 +58,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.base.generated
-              - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -69,7 +69,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.ruby
-              - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -80,7 +80,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.swift
-              - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -149,7 +149,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.base.generated
-              - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -160,7 +160,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.ruby
-              - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -171,7 +171,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.swift
-              - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
