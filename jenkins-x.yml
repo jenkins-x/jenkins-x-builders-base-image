@@ -93,11 +93,11 @@ pipelineConfig:
               - push-version
               - --kind
               - docker
-              - jenkinsxio/builder-baseimage
+              - gcr.io/jenkinsxio/builder-baseimage
               - ${inputs.params.version}
-              - jenkinsxio/builder-ruby-baseimage
+              - gcr.io/jenkinsxio/builder-ruby-baseimage
               - ${inputs.params.version}
-              - jenkinsxio/builder-swift-baseimage
+              - gcr.io/jenkinsxio/builder-swift-baseimage
               - ${inputs.params.version}
 
     pullRequest:
