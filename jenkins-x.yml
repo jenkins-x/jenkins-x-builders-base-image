@@ -58,7 +58,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.base.generated
-              - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -69,7 +69,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.ruby
-              - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -80,29 +80,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.swift
-              - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
-              - --context=/workspace/source
-              - --cache-repo=gcr.io/jenkinsxio/cache-builder
-              - --cache=true
-              - --cache-dir=/workspace
-
-          - name: builder-machine-learning-baseimage
-            image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.machinelearning.generated
-              - --destination=docker.io/jenkinsxio/builder-machine-learning-baseimage:${inputs.params.version}
-              - --context=/workspace/source
-              - --cache-repo=gcr.io/jenkinsxio/cache-builder
-              - --cache=true
-              - --cache-dir=/workspace
-
-          - name: builder-machine-learning-gpu-baseimage
-            image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.machinelearninggpu.generated
-              - --destination=docker.io/jenkinsxio/builder-machine-learning-gpu-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -120,10 +98,6 @@ pipelineConfig:
               - jenkinsxio/builder-ruby-baseimage
               - ${inputs.params.version}
               - jenkinsxio/builder-swift-baseimage
-              - ${inputs.params.version}
-              - jenkinsxio/builder-machine-learning-baseimage
-              - ${inputs.params.version}
-              - jenkinsxio/builder-machine-learning-gpu-baseimage
               - ${inputs.params.version}
 
     pullRequest:
@@ -175,7 +149,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.base.generated
-              - --destination=docker.io/jenkinsxio/builder-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -186,7 +160,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.ruby
-              - --destination=docker.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-ruby-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
@@ -197,29 +171,7 @@ pipelineConfig:
             command: /kaniko/executor
             args:
               - --dockerfile=Dockerfile.swift
-              - --destination=docker.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
-              - --context=/workspace/source
-              - --cache-repo=gcr.io/jenkinsxio/cache-builder
-              - --cache=true
-              - --cache-dir=/workspace
-
-          - name: builder-machine-learning-baseimage
-            image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.machinelearning.generated
-              - --destination=docker.io/jenkinsxio/builder-machine-learning-baseimage:${inputs.params.version}
-              - --context=/workspace/source
-              - --cache-repo=gcr.io/jenkinsxio/cache-builder
-              - --cache=true
-              - --cache-dir=/workspace
-
-          - name: builder-machine-learning-gpu-baseimage
-            image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.machinelearninggpu.generated
-              - --destination=docker.io/jenkinsxio/builder-machine-learning-gpu-baseimage:${inputs.params.version}
+              - --destination=gcr.io/jenkinsxio/builder-swift-baseimage:${inputs.params.version}
               - --context=/workspace/source
               - --cache-repo=gcr.io/jenkinsxio/cache-builder
               - --cache=true
