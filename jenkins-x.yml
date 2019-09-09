@@ -88,7 +88,7 @@ pipelineConfig:
 
           - name: updatebot
             image: gcr.io/jenkinsxio/builder-jx:0.1.728
-            command: ./updatebot.sh
+            command: ./update-bot.sh
 
     pullRequest:
       pipeline:
