@@ -87,18 +87,8 @@ pipelineConfig:
               - --cache-dir=/workspace
 
           - name: updatebot
-            image: gcr.io/jenkinsxio/builder-jx:0.1.320
-            command: updatebot
-            args:
-              - push-version
-              - --kind
-              - docker
-              - gcr.io/jenkinsxio/builder-baseimage
-              - ${inputs.params.version}
-              - gcr.io/jenkinsxio/builder-ruby-baseimage
-              - ${inputs.params.version}
-              - gcr.io/jenkinsxio/builder-swift-baseimage
-              - ${inputs.params.version}
+            image: gcr.io/jenkinsxio/builder-jx:0.1.728
+            command: ./updatebot.sh
 
     pullRequest:
       pipeline:
