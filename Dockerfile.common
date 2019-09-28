@@ -32,7 +32,9 @@ RUN yum update  -y && \
     cd git-${GIT_VERSION} && \
     make prefix=/usr/local/git all  && \
     make prefix=/usr/local/git install && \
+    cd /usr/src && \
     rm -rf git-${GIT_VERSION}.tar.gz && \
+    rm -rf git-${GIT_VERSION} && \
     yum -y groupinstall 'Development Tools' && \
     yum remove -y git && \
     # jq
