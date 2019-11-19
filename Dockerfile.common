@@ -6,6 +6,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV GIT_VERSION 2.21.0
 ENV JQ_RELEASE_VERSION 1.5
+ENV YQ_RELEASE_VERSION 2.4.1
 
 RUN yum update  -y && \
     yum install -y epel-release && \
@@ -38,7 +39,9 @@ RUN yum update  -y && \
     yum -y groupinstall 'Development Tools' && \
     yum remove -y git && \
     # jq
-    wget https://github.com/stedolan/jq/releases/download/jq-${JQ_RELEASE_VERSION}/jq-linux64 && mv jq-linux64 jq && chmod +x jq && cp jq /usr/bin/jq && \
+    wget https://github.com/stedolan/jq/releases/download/jq-${JQ_RELEASE_VERSION}/jq-linux64 && mv jq-linux64 jq && chmod +x jq && mv jq /usr/bin/jq && \
+    # yq
+    wget https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE_VERSION}/yq_linux_amd64 && mv yq_linux_amd64 yq && chmod +x yq && mv yq /usr/bin/yq && \
     yum clean all
 
 ENV PATH /usr/local/git/bin:$PATH
