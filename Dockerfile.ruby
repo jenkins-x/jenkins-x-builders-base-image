@@ -21,6 +21,6 @@ RUN apt-get update && apt-get install -y \
     dpkg -i google-chrome*.deb && \
     rm google-chrome*.deb && \
     apt-get clean \
-  && rm /var/lib/apt/lists/* \
+  && rm -rf /var/lib/apt/lists/* \
   && wget https://github.com/stedolan/jq/releases/download/jq-${JQ_RELEASE_VERSION}/jq-linux64 && mv jq-linux64 jq && chmod +x jq && mv jq /usr/bin/jq && \
     wget https://github.com/mikefarah/yq/releases/download/${YQ_RELEASE_VERSION}/yq_linux_amd64 && mv yq_linux_amd64 yq && chmod +x yq && mv yq /usr/bin/yq
